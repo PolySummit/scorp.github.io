@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <!-- Meta tags for social media banners, these should be filled in appropriatly as they are your "business card" -->
+  <!-- Replace the content tag with appropriate information -->
+  <meta name="description" content="DESCRIPTION META TAG">
+  <meta property="og:title" content="SOCIAL MEDIA TITLE TAG" />
+  <meta property="og:description" content="SOCIAL MEDIA DESCRIPTION TAG TAG" />
+  <meta property="og:url" content="URL OF THE WEBSITE" />
+  <!-- Path to banner image, should be in the path listed below. Optimal dimenssions are 1200X630-->
+  <meta property="og:image" content="static/image/your_banner_image.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+
+
+  <meta name="twitter:title" content="TWITTER BANNER TITLE META TAG">
+  <meta name="twitter:description" content="TWITTER BANNER DESCRIPTION META TAG">
+  <!-- Path to banner image, should be in the path listed below. Optimal dimenssions are 1200X600-->
+  <meta name="twitter:image" content="static/images/your_twitter_banner_image.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <!-- Keywords for your paper to be indexed by-->
+  <meta name="keywords" content="KEYWORDS SHOULD BE PLACED HERE">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+  <title>OptiScene & 3D-SynthPlace</title>
+  <link rel="icon" type="image/x-icon" href="static/images/favicon.ico">
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet">
+
+  <link rel="stylesheet" href="static/css/bulma.min.css">
+  <link rel="stylesheet" href="static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="static/css/fontawesome.all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="static/css/index.css">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://documentcloud.adobe.com/view-sdk/main.js"></script>
+  <script defer src="static/js/fontawesome.all.min.js"></script>
+  <script src="static/js/bulma-carousel.min.js"></script>
+  <script src="static/js/bulma-slider.min.js"></script>
+  <script src="static/js/index.js"></script>
+</head>
+
+<body>
+
+
+  <section class="hero">
+    <div class="hero-body">
+      <div class="container is-max-widescreen">
+        <div class="columns is-centered">
+          <div class="column has-text-centered">
+            <h1 class="title is-1 publication-title">RAISE: Refine Any Object in Any Scene</h1>
+            <div class="is-size-5 publication-authors">
+              <!-- Paper authors -->
+              <span class="author-block">Ziwei Chen<sup>1*</sup>,</span>
+              <span class="author-block">Ziling Liu<sup>1*</sup>,</span>
+              <span class="author-block">Zitong Huang<sup>1*</sup>,</span>
+              <span class="author-block">Mingqi Gao<sup>1</sup>,
+                <span class="author-block">Feng Zheng<sup>1†</sup></span>
+            </div>
+
+            <div class="is-size-5 publication-authors institution-list">
+              <span class="author-block">1. Southern University of Science and Technology</span>&emsp;
+
+              <span class="eql-cntrb"><small><br><sup>*</sup>Equal Contribution &nbsp; <sup>†</sup>Corresponding
+                  Author</small></span>
+            </div>
+
+            <div class="column has-text-centered">
+              <!-- Arxiv PDF link -->
+              <span class="link-block">
+                <a href="https://arxiv.org/pdf/2506.23835" target="_blank"
+                  class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                    <i class="fas fa-file-pdf"></i>
+                  </span>
+                  <span>Paper</span>
+                </a>
+              </span>
+
+              <!-- Github link -->
+              <span class="link-block">
+                <a href="https://github.com/PolySummit/RAISE" target="_blank"
+                  class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                    <i class="fab fa-github"></i>
+                  </span>
+                  <span>Code</span>
+                </a>
+              </span>
+
+              <!-- ArXiv abstract Link -->
+              <span class="link-block">
+                <a href="https://arxiv.org/abs/2506.23835" target="_blank"
+                  class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                    <i class="ai ai-arxiv"></i>
+                  </span>
+                  <span>arXiv</span>
+                </a>
+              </span>
+
+            </div>
+          </div>
+        </div>
+      </div>
+  </section>
+
+
+  <!-- 顶部PDF图片替换视频 -->
+  <section class="hero teaser">
+    <div class="container is-max-widescreen">
+      <div class="hero-body">
+        <img src="static/images/fig2.pdf.png" alt="Paper Cover"
+          style="width:100%;max-width:1200px;display:block;margin:auto;">
+        <h2 class="content">
+          Detailed overview of the RAISE pipeline.
+          (Left): Object Segmentation & Proxy Object Synthesis. Multi-view RGB images are first splatted into an initial
+          GS-based scene. Text-prompted visual grounding and tracking isolate each target (e.g., “blue box”, “pink
+          tissue”, “white can”) and lift their partial GS-based models. A view-selection heuristic then picks the most
+          informative reference views, which are fed to the 3D generative model to hallucinate shape-complete,
+          photorealistic proxy objects.
+          (Middle): The generated proxies are coarsely scaled and translated to match their degraded counterparts by
+          comparing geometry on the two Gaussian point sets. Remaining 7-DoF pose optimization is through matching-based
+          adjustment: 2D key-points matched between rendered proxies and masked input images are back-projected to 3D,
+          and an Umeyama-RANSAC solver refines rotation, translation and an isotropic scale, producing a scene with
+          pre-registered targets.
+          (Right): To eliminate residual geometric and appearance discrepancies while preserving the established
+          registration, RAISE first performs scale-undistorted shape refinement, replacing the isotropic scale with an
+          anisotropic diagonal matrix that is optimised together with regularisers. It then applies pose-constrained
+          appearance refinement, freezing geometry and re-optimising only the spherical-harmonic colours against visible
+          views, ensuring view-consistent textures. The refined proxies seamlessly replace their incomplete originals,
+          yielding a scene whose objects exhibit complete geometry, faithful appearance and unchanged pose.
+        </h2>
+      </div>
+    </div>
+  </section>
+  <!-- End teaser image -->
+
+  <!-- Paper abstract -->
+  <section class="section hero is-light">
+    <div class="container is-max-widescreen">
+      <div class="columns is-centered has-text-centered">
+        <div class="column is-four-fifths">
+          <h2 class="title is-3">Abstract</h2>
+          <div class="content has-text-justified">
+            <p>
+            <p>
+              Viewpoint missing of objects is common in scene reconstruction, as camera paths typically prioritize
+              capturing the overall scene structure rather than individual objects. This makes it highly challenging to
+              achieve high-fidelity object-level modeling while maintaining accurate scene-level representation.
+              Addressing this issue is critical for advancing downstream tasks requiring detailed object understanding
+              and appearance modeling. In this paper, we introduce <u>R</u>efine <u>A</u>ny object <u>I</u>n any
+              <u>S</u>cen<u>E</u> that leverages 3D generative priors to recover fine-grained object geometry and
+              appearance under missing views. Starting from substituting degraded objects with proxies, via a 3D
+              generative model with strong 3D understanding, <strong>RAISE</strong> progressively refines geometry and
+              texture by aligning each proxy to its degraded counterpart in 7-DOF pose, followed by correcting spatial
+              and appearance inconsistencies via registration-constrained enhancement. This two-stage refinement ensures
+              the high-fidelity geometry and appearance of the original object in unseen views while maintaining
+              consistency in spatial positioning, observed geometry, and appearance. Extensive experiments on
+              challenging benchmarks show that <strong>RAISE</strong> significantly outperforms state-of-the-art methods
+              in both novel view synthesis and geometry completion tasks. RAISE is made publicly available at <a
+                href="https://github.com/PolySummit/RAISE" target="_blank">https://github.com/PolySummit/RAISE</a>.
+            </p>
+
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div style="text-align:center; margin:auto; margin-top: 2em;" , class="container is-max-widescreen">
+    <h2 style="font-weight:bold; text-align:center; font-size:1.5em;">
+      Qualitative comparison with other methods.
+    </h2>
+    <h2 class="content; text-align:left;">
+      Interactive qualitative comparisons with other methods. The columns from left to right are resulted target objects from 3D Gaussian Splatting (<strong>3DGS</strong>), 2D Gaussian Splatting (<strong>2DGS</strong>), <strong>DNGaussian</strong>, <strong>GenFusion</strong>, and <strong>RAISE</strong> correspondingly. These results are all chosen from results of the <i>medium</i> difficulty setting.
+    </h2>
+    <!-- <a href="static/images/Q1result.jpg" target="_blank"> -->
+    <div style="display: flex; justify-content: center; gap: 5px;">
+      <div style="width:20%;height:200px;border:1px solid #ccc;border-radius:8px;">
+        <iframe src="static/gs/Desk/3dgs/light green bowl-viewer.html?noui&noanim"
+          style="width:100%;height:100%;border:none" loading="lazy" title="3D Gaussian Splat Preview">
+        </iframe>
+      </div>
+      <div style="width:20%;height:200px;border:1px solid #ccc;border-radius:8px;">
+        <iframe src="static/gs/Desk/2dgs/light green bowl-viewer.html?noui&noanim"
+          style="width:100%;height:100%;border:none" loading="lazy" title="3D Gaussian Splat Preview">
+        </iframe>
+      </div>
+      <div style="width:20%;height:200px;border:1px solid #ccc;border-radius:8px;">
+        <iframe src="static/gs/Desk/dn/light green bowl-viewer.html?noui&noanim"
+          style="width:100%;height:100%;border:none" loading="lazy" title="3D Gaussian Splat Preview">
+        </iframe>
+      </div>
+      <div style="width:20%;height:200px;border:1px solid #ccc;border-radius:8px;">
+        <iframe src="static/gs/Desk/genfusion/light green bowl-viewer.html?noui&noanim"
+          style="width:100%;height:100%;border:none" loading="lazy" title="3D Gaussian Splat Preview">
+        </iframe>
+      </div>
+      <div style="width:20%;height:200px;border:1px solid #ccc;border-radius:8px;">
+        <iframe src="static/gs/Desk/ours/light green bowl-viewer.html?noui&noanim"
+          style="width:100%;height:100%;border:none" loading="lazy" title="3D Gaussian Splat Preview">
+        </iframe>
+      </div>
+    </div>
+
+    <div style="display: flex; justify-content: center; gap: 5px;">
+      <div style="width:20%;height:200px;border:1px solid #ccc;border-radius:8px;">
+        <iframe src="static/gs/Desk/3dgs/red bag-viewer.html?noui&noanim" style="width:100%;height:100%;border:none"
+          loading="lazy" title="3D Gaussian Splat Preview">
+        </iframe>
+      </div>
+      <div style="width:20%;height:200px;border:1px solid #ccc;border-radius:8px;">
+        <iframe src="static/gs/Desk/2dgs/red bag-viewer.html?noui&noanim" style="width:100%;height:100%;border:none"
+          loading="lazy" title="3D Gaussian Splat Preview">
+        </iframe>
+      </div>
+      <div style="width:20%;height:200px;border:1px solid #ccc;border-radius:8px;">
+        <iframe src="static/gs/Desk/dn/red bag-viewer.html?noui&noanim" style="width:100%;height:100%;border:none"
+          loading="lazy" title="3D Gaussian Splat Preview">
+        </iframe>
+      </div>
+      <div style="width:20%;height:200px;border:1px solid #ccc;border-radius:8px;">
+        <iframe src="static/gs/Desk/genfusion/red bag-viewer.html?noui&noanim"
+          style="width:100%;height:100%;border:none" loading="lazy" title="3D Gaussian Splat Preview">
+        </iframe>
+      </div>
+      <div style="width:20%;height:200px;border:1px solid #ccc;border-radius:8px;">
+        <iframe src="static/gs/Desk/ours/red bag-viewer.html?noui&noanim" style="width:100%;height:100%;border:none"
+          loading="lazy" title="3D Gaussian Splat Preview">
+        </iframe>
+      </div>
+    </div>
+
+    <div style="display: flex; justify-content: center; gap: 5px;">
+      <div style="width:20%;height:200px;border:1px solid #ccc;border-radius:8px;">
+        <iframe src="static/gs/Desk/3dgs/yellow bottle-viewer.html?noui&noanim"
+          style="width:100%;height:100%;border:none" loading="lazy" title="3D Gaussian Splat Preview">
+        </iframe>
+      </div>
+      <div style="width:20%;height:200px;border:1px solid #ccc;border-radius:8px;">
+        <iframe src="static/gs/Desk/2dgs/yellow bottle-viewer.html?noui&noanim"
+          style="width:100%;height:100%;border:none" loading="lazy" title="3D Gaussian Splat Preview">
+        </iframe>
+      </div>
+      <div style="width:20%;height:200px;border:1px solid #ccc;border-radius:8px;">
+        <iframe src="static/gs/Desk/dn/yellow bottle-viewer.html?noui&noanim" style="width:100%;height:100%;border:none"
+          loading="lazy" title="3D Gaussian Splat Preview">
+        </iframe>
+      </div>
+      <div style="width:20%;height:200px;border:1px solid #ccc;border-radius:8px;">
+        <iframe src="static/gs/Desk/genfusion/yellow bottle-viewer.html?noui&noanim"
+          style="width:100%;height:100%;border:none" loading="lazy" title="3D Gaussian Splat Preview">
+        </iframe>
+      </div>
+      <div style="width:20%;height:200px;border:1px solid #ccc;border-radius:8px;">
+        <iframe src="static/gs/Desk/ours/yellow bottle-viewer.html?noui&noanim"
+          style="width:100%;height:100%;border:none" loading="lazy" title="3D Gaussian Splat Preview">
+        </iframe>
+      </div>
+    </div>
+
+    <div style="display: flex; justify-content: center; gap: 5px;">
+      <div style="width:20%;height:200px;border:1px solid #ccc;border-radius:8px;">
+        <iframe src="static/gs/kitchen/3dgs/lego bulldozer-viewer.html?noui&noanim"
+          style="width:100%;height:100%;border:none" loading="lazy" title="3D Gaussian Splat Preview">
+        </iframe>
+      </div>
+      <div style="width:20%;height:200px;border:1px solid #ccc;border-radius:8px;">
+        <iframe src="static/gs/kitchen/2dgs/lego bulldozer-viewer.html?noui&noanim"
+          style="width:100%;height:100%;border:none" loading="lazy" title="3D Gaussian Splat Preview">
+        </iframe>
+      </div>
+      <div style="width:20%;height:200px;border:1px solid #ccc;border-radius:8px;">
+        <iframe src="static/gs/kitchen/dn/lego bulldozer-viewer.html?noui&noanim" style="width:100%;height:100%;border:none"
+          loading="lazy" title="3D Gaussian Splat Preview">
+        </iframe>
+      </div>
+      <div style="width:20%;height:200px;border:1px solid #ccc;border-radius:8px;">
+        <iframe src="static/gs/kitchen/genfusion/lego bulldozer-viewer.html?noui&noanim"
+          style="width:100%;height:100%;border:none" loading="lazy" title="3D Gaussian Splat Preview">
+        </iframe>
+      </div>
+      <div style="width:20%;height:200px;border:1px solid #ccc;border-radius:8px;">
+        <iframe src="static/gs/kitchen/ours/lego bulldozer-viewer.html?noui&noanim"
+          style="width:100%;height:100%;border:none" loading="lazy" title="3D Gaussian Splat Preview">
+        </iframe>
+      </div>
+    </div>
+
+    <div style="display: flex; justify-content: center; gap: 5px;">
+      <div style="width:20%;height:200px;border:1px solid #ccc;border-radius:8px;">
+        <iframe src="static/gs/Bench/3dgs/blue box-viewer.html?noui&noanim"
+          style="width:100%;height:100%;border:none" loading="lazy" title="3D Gaussian Splat Preview">
+        </iframe>
+      </div>
+      <div style="width:20%;height:200px;border:1px solid #ccc;border-radius:8px;">
+        <iframe src="static/gs/Bench/2dgs/blue box-viewer.html?noui&noanim"
+          style="width:100%;height:100%;border:none" loading="lazy" title="3D Gaussian Splat Preview">
+        </iframe>
+      </div>
+      <div style="width:20%;height:200px;border:1px solid #ccc;border-radius:8px;">
+        <iframe src="static/gs/Bench/dn/blue box-viewer.html?noui&noanim" style="width:100%;height:100%;border:none"
+          loading="lazy" title="3D Gaussian Splat Preview">
+        </iframe>
+      </div>
+      <div style="width:20%;height:200px;border:1px solid #ccc;border-radius:8px;">
+        <iframe src="static/gs/Bench/genfusion/blue box-viewer.html?noui&noanim"
+          style="width:100%;height:100%;border:none" loading="lazy" title="3D Gaussian Splat Preview">
+        </iframe>
+      </div>
+      <div style="width:20%;height:200px;border:1px solid #ccc;border-radius:8px;">
+        <iframe src="static/gs/Bench/ours/blue box-viewer.html?noui&noanim"
+          style="width:100%;height:100%;border:none" loading="lazy" title="3D Gaussian Splat Preview">
+        </iframe>
+      </div>
+    </div>
+
+    <div style="display: flex; justify-content: center; gap: 5px;">
+      <div style="width:20%;height:200px;border:1px solid #ccc;border-radius:8px;">
+        <iframe src="static/gs/Bench/3dgs/red tissue-viewer.html?noui&noanim"
+          style="width:100%;height:100%;border:none" loading="lazy" title="3D Gaussian Splat Preview">
+        </iframe>
+      </div>
+      <div style="width:20%;height:200px;border:1px solid #ccc;border-radius:8px;">
+        <iframe src="static/gs/Bench/2dgs/red tissue-viewer.html?noui&noanim"
+          style="width:100%;height:100%;border:none" loading="lazy" title="3D Gaussian Splat Preview">
+        </iframe>
+      </div>
+      <div style="width:20%;height:200px;border:1px solid #ccc;border-radius:8px;">
+        <iframe src="static/gs/Bench/dn/red tissue-viewer.html?noui&noanim" style="width:100%;height:100%;border:none"
+          loading="lazy" title="3D Gaussian Splat Preview">
+        </iframe>
+      </div>
+      <div style="width:20%;height:200px;border:1px solid #ccc;border-radius:8px;">
+        <iframe src="static/gs/Bench/genfusion/red tissue-viewer.html?noui&noanim"
+          style="width:100%;height:100%;border:none" loading="lazy" title="3D Gaussian Splat Preview">
+        </iframe>
+      </div>
+      <div style="width:20%;height:200px;border:1px solid #ccc;border-radius:8px;">
+        <iframe src="static/gs/Bench/ours/red tissue-viewer.html?noui&noanim"
+          style="width:100%;height:100%;border:none" loading="lazy" title="3D Gaussian Splat Preview">
+        </iframe>
+      </div>
+    </div>
+
+    <div style="display: flex; justify-content: center; gap: 5px;">
+      <div style="width:20%;height:200px;border:1px solid #ccc;border-radius:8px;">
+        <iframe src="static/gs/Bench/3dgs/white can-viewer.html?noui&noanim"
+          style="width:100%;height:100%;border:none" loading="lazy" title="3D Gaussian Splat Preview">
+        </iframe>
+      </div>
+      <div style="width:20%;height:200px;border:1px solid #ccc;border-radius:8px;">
+        <iframe src="static/gs/Bench/2dgs/white can-viewer.html?noui&noanim"
+          style="width:100%;height:100%;border:none" loading="lazy" title="3D Gaussian Splat Preview">
+        </iframe>
+      </div>
+      <div style="width:20%;height:200px;border:1px solid #ccc;border-radius:8px;">
+        <iframe src="static/gs/Bench/dn/white can-viewer.html?noui&noanim" style="width:100%;height:100%;border:none"
+          loading="lazy" title="3D Gaussian Splat Preview">
+        </iframe>
+      </div>
+      <div style="width:20%;height:200px;border:1px solid #ccc;border-radius:8px;">
+        <iframe src="static/gs/Bench/genfusion/white can-viewer.html?noui&noanim"
+          style="width:100%;height:100%;border:none" loading="lazy" title="3D Gaussian Splat Preview">
+        </iframe>
+      </div>
+      <div style="width:20%;height:200px;border:1px solid #ccc;border-radius:8px;">
+        <iframe src="static/gs/Bench/ours/white can-viewer.html?noui&noanim"
+          style="width:100%;height:100%;border:none" loading="lazy" title="3D Gaussian Splat Preview">
+        </iframe>
+      </div>
+    </div>
+
+    <!-- </a> -->
+  </div>
+
+
+
+  <div style="text-align:center; margin:auto; margin-top: 2em;" , class="container is-max-widescreen">
+    <h2 style="font-weight:bold; text-align:center; font-size:1.5em;">
+      Quantitative comparison on appearance.
+    </h2>
+    <h2 class="content; text-align:left;">
+      Quantitative comparisons in the rendering quality are calculated on average in all scenes mentioned in the paper. The <span style="background-color: rgba(255, 0, 0, 0.2); padding: 2px 4px;">best</span>, the <span style="background-color: rgba(255, 165, 0, 0.3); padding: 2px 4px;">second best</span>, and the <span style="background-color: rgba(255, 255, 0, 0.3); padding: 2px 4px;">third best</span> are highlighted.
+    </h2>
+    <!-- <a href="static/images/Q2result.jpg" target="_blank"> -->
+    <img src="static/images/tab_quantitative_app.png" alt="app_quantitative"
+      style="max-width:100%; height:auto; margin-top:1em;">
+    <!-- </a> -->
+  </div>
+
+  <div style="text-align:center; margin:auto; margin-top: 2em;" , class="container is-max-widescreen">
+    <h2 style="font-weight:bold; text-align:center; font-size:1.5em;">
+      Quantitative comparison on geometry.
+    </h2>
+    <h2 class="content; text-align:left;">
+      Quantitative comparisons in the geometry quality. The data listed represents the average values of the relevant data across 50 constructed scenarios.
+    </h2>
+    <!-- <a href="static/images/Q1result.jpg" target="_blank"> -->
+    <img src="static/images/tab_quantitative_geo.png" alt="geo_quantitative"
+      style="max-width:100%; height:auto; margin-top:1em;">
+    <!-- </a> -->
+  </div>
+
+  <!--BibTex citation -->
+  <section class="section" id="BibTeX">
+    <div class="container is-max-widescreen content">
+      <h2 class="title">BibTeX</h2>
+      <pre><code>@misc{chen2025refineobjectscene,
+      title={Refine Any Object in Any Scene}, 
+      author={Ziwei Chen and Ziling Liu and Zitong Huang and Mingqi Gao and Feng Zheng},
+      year={2025},
+      eprint={2506.23835},
+      archivePrefix={arXiv},
+      primaryClass={cs.CV},
+      url={https://arxiv.org/abs/2506.23835}, 
+}</code></pre>
+    </div>
+  </section>
+  <!--End BibTex citation -->
+
+
+  <footer class="footer">
+    <div class="container">
+      <div class="columns is-centered">
+        <div class="column is-8">
+          <div class="content">
+
+            <p>
+              This page was built using the <a href="https://github.com/eliahuhorwitz/Academic-project-page-template"
+                target="_blank">Academic Project Page Template</a> which was adopted from the <a
+                href="https://nerfies.github.io" target="_blank">Nerfies</a> project page.
+              You are free to borrow the source code of this website, we just ask that you link back to this page in the
+              footer. <br> This website is licensed under a <a rel="license"
+                href="http://creativecommons.org/licenses/by-sa/4.0/" target="_blank">Creative
+                Commons Attribution-ShareAlike 4.0 International License</a>.
+            </p>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Statcounter tracking code -->
+
+  <!-- You can add a tracker to track page visits by creating an account at statcounter.com -->
+
+  <!-- End of Statcounter Code -->
+
+</body>
+
+</html>
