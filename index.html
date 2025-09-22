@@ -25,7 +25,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
 
-  <title>RAISE</title>
+  <title>SCORP: Scene-Consistent Object Refinement via Proxy Generation and Tuning</title>
   <link rel="icon" type="image/x-icon" href="static/images/favicon.ico">
   <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet">
 
@@ -52,18 +52,18 @@
       <div class="container is-max-widescreen">
         <div class="columns is-centered">
           <div class="column has-text-centered">
-            <h1 class="title is-1 publication-title">RAISE: Refine Any Object in Any Scene</h1>
+            <h1 class="title is-1 publication-title">SCORP: Scene-Consistent Object Refinement via Proxy Generation and Tuning</h1>
             <div class="is-size-5 publication-authors">
               <!-- Paper authors -->
               <span class="author-block">Ziwei Chen<sup>1*</sup>,</span>
               <span class="author-block">Ziling Liu<sup>1*</sup>,</span>
               <span class="author-block">Zitong Huang<sup>1*</sup>,</span>
-              <span class="author-block">Mingqi Gao<sup>1</sup>,
-                <span class="author-block">Feng Zheng<sup>1†</sup></span>
+              <span class="author-block">Mingqi Gao<sup>1,2</sup>,</span>
+              <span class="author-block">Feng Zheng<sup>1,3†</sup></span>
             </div>
 
             <div class="is-size-5 publication-authors institution-list">
-              <span class="author-block">1. Southern University of Science and Technology</span>&emsp;
+              <span class="author-block"><sup>1</sup>Southern University of Science and Technology <sup>2</sup>University of Sheffield <sup>3</sup>Spatialtemporal AI</span>&emsp;
 
               <span class="eql-cntrb"><small><br><sup>*</sup>Equal Contribution &nbsp; <sup>†</sup>Corresponding
                   Author</small></span>
@@ -83,7 +83,7 @@
 
               <!-- Github link -->
               <span class="link-block">
-                <a href="https://github.com/PolySummit/RAISE" target="_blank"
+                <a href="https://github.com/PolySummit/SCORP" target="_blank"
                   class="external-link button is-normal is-rounded is-dark">
                   <span class="icon">
                     <i class="fab fa-github"></i>
@@ -117,23 +117,7 @@
         <img src="static/images/fig2.pdf.png" alt="Paper Cover"
           style="width:100%;max-width:1200px;display:block;margin:auto;">
         <h2 class="content">
-          Detailed overview of the RAISE pipeline.
-          (Left): Object Segmentation & Proxy Object Synthesis. Multi-view RGB images are first splatted into an initial
-          GS-based scene. Text-prompted visual grounding and tracking isolate each target (e.g., “blue box”, “pink
-          tissue”, “white can”) and lift their partial GS-based models. A view-selection heuristic then picks the most
-          informative reference views, which are fed to the 3D generative model to hallucinate shape-complete,
-          photorealistic proxy objects.
-          (Middle): The generated proxies are coarsely scaled and translated to match their degraded counterparts by
-          comparing geometry on the two Gaussian point sets. Remaining 7-DoF pose optimization is through matching-based
-          adjustment: 2D key-points matched between rendered proxies and masked input images are back-projected to 3D,
-          and an Umeyama-RANSAC solver refines rotation, translation and an isotropic scale, producing a scene with
-          pre-registered targets.
-          (Right): To eliminate residual geometric and appearance discrepancies while preserving the established
-          registration, RAISE first performs scale-undistorted shape refinement, replacing the isotropic scale with an
-          anisotropic diagonal matrix that is optimised together with regularisers. It then applies pose-constrained
-          appearance refinement, freezing geometry and re-optimising only the spherical-harmonic colours against visible
-          views, ensuring view-consistent textures. The refined proxies seamlessly replace their incomplete originals,
-          yielding a scene whose objects exhibit complete geometry, faithful appearance and unchanged pose.
+          Overview of SCORP. Left: Object segmentation & proxy synthesis. From multi-view inputs, we reconstruct an initial 3DGS scene, obtain text-prompted object masks, select informative views, and synthesize a proxy object for each target object with a generative model. Middle: Initial object registration. Each proxy is inserted into the scene via coarse alignment and matching-based pose adjustment using origin-proxy correspondences, yielding a scene with pre-registered targets. Right: Registration-constrained fine alignment. We perform scale-undistorted shape refinement followed by appearance refinement under pose constraints, producing fine-aligned objects that recover geometry and textures while preserving scene-level consistency. Bottom rows show the rendered scene after each stage.
         </h2>
       </div>
     </div>
@@ -149,22 +133,14 @@
           <div class="content has-text-justified">
             <p>
             <p>
-              Viewpoint missing of objects is common in scene reconstruction, as camera paths typically prioritize
-              capturing the overall scene structure rather than individual objects. This makes it highly challenging to
-              achieve high-fidelity object-level modeling while maintaining accurate scene-level representation.
-              Addressing this issue is critical for advancing downstream tasks requiring detailed object understanding
-              and appearance modeling. In this paper, we introduce <u>R</u>efine <u>A</u>ny object <u>I</u>n any
-              <u>S</u>cen<u>E</u> that leverages 3D generative priors to recover fine-grained object geometry and
-              appearance under missing views. Starting from substituting degraded objects with proxies, via a 3D
-              generative model with strong 3D understanding, <strong>RAISE</strong> progressively refines geometry and
-              texture by aligning each proxy to its degraded counterpart in 7-DOF pose, followed by correcting spatial
-              and appearance inconsistencies via registration-constrained enhancement. This two-stage refinement ensures
-              the high-fidelity geometry and appearance of the original object in unseen views while maintaining
-              consistency in spatial positioning, observed geometry, and appearance. Extensive experiments on
-              challenging benchmarks show that <strong>RAISE</strong> significantly outperforms state-of-the-art methods
-              in both novel view synthesis and geometry completion tasks. RAISE is made publicly available at <a
-                href="https://github.com/PolySummit/RAISE" target="_blank">https://github.com/PolySummit/RAISE</a>.
-            </p>
+              Viewpoint missing of objects is common in scene reconstruction, as camera paths typically prioritize capturing the overall scene structure rather than individual objects. This makes it highly challenging to achieve high-fidelity object-level modeling while maintaining accurate scene-level representation.
+              Addressing this issue is critical for advancing downstream tasks requiring high-fidelity object reconstruction. In this paper, we introduce <u>S</u>cene-<u>C</u>onsistent <u>O</u>bject <u>R</u>efinement via <u>P</u>roxy Generation and Tuning (SCORP), a novel 3D enhancement framework that leverages 3D generative priors to recover fine-grained object geometry and appearance under missing views.
+              Starting with proxy generation by substituting degraded objects using a 3D generation model, SCORP then progressively refines geometry and texture by aligning each proxy to its degraded counterpart in 7-DoF pose, followed by correcting spatial and appearance inconsistencies through registration-constrained enhancement.
+              This two-stage proxy tuning ensures the high-fidelity geometry and appearance of the original object in unseen views while maintaining consistency in spatial positioning, observed geometry, and appearance.
+              Across challenging benchmarks, SCORP achieves consistent gains over recent state-of-the-art baselines on both novel view synthesis and geometry completion tasks. 
+              SCORP is available at <a
+                href="https://github.com/PolySummit/SCORP" target="_blank">https://github.com/PolySummit/SCORP</a>.
+              </p>
 
             </p>
           </div>
@@ -178,7 +154,7 @@
       Qualitative comparison with other methods.
     </h2>
     <h2 class="content; text-align:left;">
-      Interactive qualitative comparisons with other methods. The columns from left to right are resulted target objects from 3D Gaussian Splatting (<strong>3DGS</strong>), 2D Gaussian Splatting (<strong>2DGS</strong>), <strong>DNGaussian</strong>, <strong>GenFusion</strong>, and <strong>RAISE</strong> correspondingly. These results are all chosen from results of the <i>medium</i> difficulty setting.
+      Interactive qualitative comparisons with other methods. The columns from left to right are resulted target objects from 3D Gaussian Splatting (<strong>3DGS</strong>), 2D Gaussian Splatting (<strong>2DGS</strong>), <strong>DNGaussian</strong>, <strong>GenFusion</strong>, and <strong>SCORP</strong> correspondingly. These results are all chosen from results of the <i>medium</i> difficulty setting.
     </h2>
     <!-- <a href="static/images/Q1result.jpg" target="_blank"> -->
     <div style="display: flex; justify-content: center; gap: 5px;">
@@ -404,7 +380,7 @@
     </h2>
     <!-- <a href="static/images/Q1result.jpg" target="_blank"> -->
     <img src="static/images/tab_quantitative_geo.png" alt="geo_quantitative"
-      style="max-width:100%; height:auto; margin-top:1em;">
+      style="max-width:50%; height:auto; margin-top:1em;">
     <!-- </a> -->
   </div>
 
